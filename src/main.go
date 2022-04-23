@@ -2,8 +2,7 @@ package main
 
 import (
 	"log"
-	"rest-api/src/db"
-	_ "rest-api/src/db"
+	"rest-api/src/rest/db"
 	"rest-api/src/routes"
 	"rest-api/src/utils"
 )

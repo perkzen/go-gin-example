@@ -3,7 +3,7 @@ package services
 import (
 	"github.com/kamva/mgm/v3"
 	"go.mongodb.org/mongo-driver/bson"
-	"rest-api/src/db/models"
+	"rest-api/src/rest/db/models"
 )
 
 type UserService struct{}

@@ -3,7 +3,7 @@ package routes
 import (
 	"github.com/gin-gonic/gin"
 	_ "github.com/gin-gonic/gin"
-	"rest-api/src/db/controllers"
+	"rest-api/src/rest/auth/controllers"
 )
 
 func setAuthRoute(router *gin.Engine) {
