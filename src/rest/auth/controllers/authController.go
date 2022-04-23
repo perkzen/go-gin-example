@@ -45,3 +45,33 @@ func (auth *AuthController) Register(c *gin.Context) {
 	c.JSON(http.StatusCreated, gin.H{"user": newUser})
 
 }
+
+func (auth *AuthController) Login(c *gin.Context) {
+	type loginDto struct {
+		Email    string `json:"email" binding:"required"`
+		Password string `json:"password" binding:"required"`
+	}
+
+	var body models.User
+
+	if err := c.ShouldBindJSON(&body); err != nil {
+		c.AbortWithStatusJSON(http.StatusPreconditionFailed, gin.H{"error": "Please input all fields"})
+		return
+	}
+
+	usersService := services.UserService{}
+
+	user, errf := usersService.FindOne(&body)
+	if errf != nil {
+		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"message": errf.Error()})
+		return
+	}
+
+	err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(body.Password))
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Email or password is invalid."})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"success": true})
+}

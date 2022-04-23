@@ -24,3 +24,14 @@ func (userService UserService) GetAll() ([]models.User, error) {
 	}
 	return results, nil
 }
+
+func (userService UserService) FindOne(user *models.User) (*models.User, error) {
+	foundUser := &models.User{}
+	err := mgm.Coll(user).First(bson.M{"email": user.Email}, foundUser)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return foundUser, nil
+}

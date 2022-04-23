@@ -11,6 +11,7 @@ func setAuthRoute(router *gin.Engine) {
 	authController := new(controllers.AuthController)
 	authGroup.GET("/users", authController.GetAllUsers)
 	authGroup.POST("/register", authController.Register)
+	authGroup.POST("/login", authController.Login)
 }
 
 func InitRoute() *gin.Engine {
