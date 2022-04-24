@@ -4,6 +4,7 @@ import (
 	"github.com/dgrijalva/jwt-go"
 	"github.com/kamva/mgm/v3"
 	"rest-api/src/utils"
+	"time"
 )
 
 type User struct {
@@ -14,8 +15,13 @@ type User struct {
 }
 
 func (user *User) GenerateJwtToken() (string, error) {
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{"email": user.Email})
-	secretKey := utils.EnvVar("SECRET:KEY", "")
+	token := jwt.New(jwt.SigningMethodHS256)
+	claims := token.Claims.(jwt.MapClaims)
+
+	claims["authorized"] = true
+	claims["user"] = user
+	claims["exp"] = time.Now().Add(time.Minute * 30).Unix()
+	secretKey := utils.EnvVar("SECRET_KEY", "")
 	tokenString, err := token.SignedString([]byte(secretKey))
 	return tokenString, err
 }

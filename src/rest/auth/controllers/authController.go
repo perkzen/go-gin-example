@@ -5,21 +5,11 @@ import (
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
 	"net/http"
+	"rest-api/src/db/models"
 	"rest-api/src/rest/auth/services"
-	"rest-api/src/rest/db/models"
 )
 
 type AuthController struct{}
-
-func (auth *AuthController) GetAllUsers(c *gin.Context) {
-	users, err := services.UserService{}.GetAll()
-	if err != nil {
-		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": err.Error()})
-		return
-	}
-
-	c.JSON(http.StatusOK, users)
-}
 
 func (auth *AuthController) Register(c *gin.Context) {
 
@@ -38,7 +28,7 @@ func (auth *AuthController) Register(c *gin.Context) {
 
 	newUser.Password = string(hash)
 
-	err = services.UserService{}.Create(newUser)
+	err = services.AuthService{}.Create(newUser)
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": err.Error()})
 		return
@@ -57,11 +47,11 @@ func (auth *AuthController) Login(c *gin.Context) {
 		return
 	}
 
-	usersService := services.UserService{}
+	usersService := services.AuthService{}
 
-	user, mongoErr := usersService.FindOne(&body)
+	user, mongoErr := usersService.FindOne(body.Email)
 	if mongoErr != nil {
-		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"message": mongoErr.Error()})
+		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"message": "Email or password is invalid."})
 		return
 	}
 
