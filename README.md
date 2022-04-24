@@ -1,4 +1,4 @@
-# Go rest Api
+# Go rest API
 
 ![image](https://user-images.githubusercontent.com/73199603/164996068-d5aefac6-db02-46e3-9203-e2a490727f3e.png)
 
