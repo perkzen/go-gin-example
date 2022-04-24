@@ -59,9 +59,9 @@ func (auth *AuthController) Login(c *gin.Context) {
 
 	usersService := services.UserService{}
 
-	user, errf := usersService.FindOne(&body)
-	if errf != nil {
-		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"message": errf.Error()})
+	user, mongoErr := usersService.FindOne(&body)
+	if mongoErr != nil {
+		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"message": mongoErr.Error()})
 		return
 	}
 
