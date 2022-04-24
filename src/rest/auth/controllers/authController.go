@@ -14,6 +14,7 @@ func (auth *AuthController) GetAllUsers(c *gin.Context) {
 	users, err := services.UserService{}.GetAll()
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": err.Error()})
+		return
 	}
 
 	c.JSON(http.StatusOK, users)
@@ -47,10 +48,6 @@ func (auth *AuthController) Register(c *gin.Context) {
 }
 
 func (auth *AuthController) Login(c *gin.Context) {
-	type loginDto struct {
-		Email    string `json:"email" binding:"required"`
-		Password string `json:"password" binding:"required"`
-	}
 
 	var body models.User
 
