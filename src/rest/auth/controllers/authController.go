@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
 	"net/http"
@@ -67,8 +68,15 @@ func (auth *AuthController) Login(c *gin.Context) {
 	err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(body.Password))
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Email or password is invalid."})
+		fmt.Println(user.Password, body.Password)
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"success": true})
+	token, jwtErr := user.GenerateJwtToken()
+	if jwtErr != nil {
+		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": jwtErr.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"token": token})
 }
