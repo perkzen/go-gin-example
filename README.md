@@ -4,7 +4,7 @@
 
 Work in progress...
 
-Go rest api using the framework Gin and MongoDb database.
+Go rest api using the framework Gin, MongoDb database and JWT authentication.
 
 Server is running at <a> http://localhost:8080/api/v1 </a>
 
