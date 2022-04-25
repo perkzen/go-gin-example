@@ -2,6 +2,7 @@ package services
 
 import (
 	"github.com/kamva/mgm/v3"
+	"go.mongodb.org/mongo-driver/bson"
 	"rest-api/src/models"
 )
 
@@ -38,4 +39,13 @@ func (todoService TodoService) ToggleCompleted(id string) (*models.Todo, error) 
 	}
 
 	return todo, nil
+}
+
+func (todoService TodoService) GetTodos(user string) ([]models.Todo, error) {
+	var results []models.Todo
+	err := mgm.Coll(&models.Todo{}).SimpleFind(&results, bson.M{"user": user})
+	if err != nil {
+		return nil, err
+	}
+	return results, nil
 }

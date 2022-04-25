@@ -27,7 +27,9 @@ func setUserRoute(router *gin.Engine) {
 func setTodoRoute(router *gin.Engine) {
 	todoGroup := router.Group("/api/v1/todo")
 	todoController := new(t.TodoController)
+	todoGroup.Use(middlewares.Authentication())
 	todoGroup.POST("/", todoController.Create)
+	todoGroup.GET("/", todoController.GetUserTodos)
 	todoGroup.GET("/:id", todoController.GetTodo)
 	todoGroup.PUT("/toggle/:id", todoController.Toggle)
 }
