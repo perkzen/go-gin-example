@@ -47,9 +47,9 @@ func (auth *AuthController) Login(c *gin.Context) {
 		return
 	}
 
-	usersService := services.AuthService{}
+	authService := services.AuthService{}
 
-	user, mongoErr := usersService.FindOne(body.Email)
+	user, mongoErr := authService.FindOne(body.Email)
 	if mongoErr != nil {
 		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"message": "Email or password is invalid."})
 		return

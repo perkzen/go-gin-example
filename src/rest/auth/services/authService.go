@@ -8,7 +8,7 @@ import (
 
 type AuthService struct{}
 
-func (userService AuthService) Create(user *models.User) error {
+func (authService AuthService) Create(user *models.User) error {
 	err := mgm.Coll(user).Create(user)
 	if err != nil {
 		return err
@@ -16,7 +16,7 @@ func (userService AuthService) Create(user *models.User) error {
 	return err
 }
 
-func (userService AuthService) FindOne(email string) (*models.User, error) {
+func (authService AuthService) FindOne(email string) (*models.User, error) {
 	foundUser := &models.User{}
 	err := mgm.Coll(foundUser).First(bson.M{"email": email}, foundUser)
 

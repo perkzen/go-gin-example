@@ -20,6 +20,7 @@ func setUserRoute(router *gin.Engine) {
 	userController := new(u.UserController)
 	usersGroup.Use(middlewares.Authentication())
 	usersGroup.GET("/", userController.GetAllUsers)
+	usersGroup.GET("/profile", userController.GetProfile)
 }
 
 func InitRoute() *gin.Engine {

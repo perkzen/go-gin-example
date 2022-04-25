@@ -3,6 +3,7 @@ package controllers
 import (
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"rest-api/src/models"
 	"rest-api/src/rest/users/services"
 )
 
@@ -16,4 +17,14 @@ func (userController *UserController) GetAllUsers(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, users)
+}
+
+func (userController *UserController) GetProfile(c *gin.Context) {
+	user := c.MustGet("user").(*models.User)
+
+	c.JSON(http.StatusOK,
+		gin.H{
+			"name":  user.Name,
+			"email": user.Email,
+		})
 }
