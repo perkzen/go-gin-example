@@ -15,7 +15,7 @@ func (todoService TodoService) Create(todo *models.Todo) error {
 	return nil
 }
 
-func findTodo(id string) (*models.Todo, error) {
+func (todoService TodoService) FindTodo(id string) (*models.Todo, error) {
 	foundTodo := &models.Todo{}
 	err := mgm.Coll(foundTodo).FindByID(id, foundTodo)
 	if err != nil {
@@ -26,7 +26,7 @@ func findTodo(id string) (*models.Todo, error) {
 }
 
 func (todoService TodoService) ToggleCompleted(id string) (*models.Todo, error) {
-	todo, err := findTodo(id)
+	todo, err := todoService.FindTodo(id)
 	if err != nil {
 		return nil, err
 	}

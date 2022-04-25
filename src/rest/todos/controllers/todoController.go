@@ -29,17 +29,23 @@ func (todoController TodoController) Create(c *gin.Context) {
 func (todoController TodoController) Toggle(c *gin.Context) {
 	id := c.Param("id")
 
-	if len(id) == 0 {
-		c.AbortWithStatusJSON(http.StatusPreconditionFailed, gin.H{"message": "Id is missing"})
-		return
-	}
-
 	todo, err := services.TodoService{}.ToggleCompleted(id)
 	if err != nil {
-		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": err.Error()})
+		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"message": "Item not found"})
 		return
 	}
 
 	c.JSON(http.StatusOK, todo)
+}
 
+func (todoController TodoController) GetTodo(c *gin.Context) {
+	id := c.Param("id")
+
+	todo, err := services.TodoService{}.FindTodo(id)
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusNotFound, gin.H{"message": "Item not found"})
+		return
+	}
+
+	c.JSON(http.StatusOK, todo)
 }
