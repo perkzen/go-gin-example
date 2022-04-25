@@ -16,7 +16,3 @@ func (userService UserService) GetAll() ([]models.User, error) {
 	}
 	return results, nil
 }
-
-func (userService UserService) getProfile() {
-
-}
