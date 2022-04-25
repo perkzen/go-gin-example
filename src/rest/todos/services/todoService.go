@@ -25,7 +25,7 @@ func findTodo(id string) (*models.Todo, error) {
 	return foundTodo, nil
 }
 
-func ToggleCompleted(id string) (*models.Todo, error) {
+func (todoService TodoService) ToggleCompleted(id string) (*models.Todo, error) {
 	todo, err := findTodo(id)
 	if err != nil {
 		return nil, err
@@ -39,5 +39,3 @@ func ToggleCompleted(id string) (*models.Todo, error) {
 
 	return todo, nil
 }
-
-func GetTodos() {}

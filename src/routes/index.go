@@ -5,6 +5,7 @@ import (
 	_ "github.com/gin-gonic/gin"
 	"rest-api/src/middlewares"
 	a "rest-api/src/rest/auth/controllers"
+	t "rest-api/src/rest/todos/controllers"
 	u "rest-api/src/rest/users/controllers"
 )
 
@@ -23,11 +24,19 @@ func setUserRoute(router *gin.Engine) {
 	usersGroup.GET("/profile", userController.GetProfile)
 }
 
+func setTodoRoute(router *gin.Engine) {
+	todoGroup := router.Group("/api/v1/todo")
+	todoController := new(t.TodoController)
+	todoGroup.POST("/", todoController.Create)
+	todoGroup.PUT("/toggle/:id", todoController.Toggle)
+}
+
 func InitRoute() *gin.Engine {
 	router := gin.New()
 	router.Use(gin.Logger())
 	router.Use(gin.Recovery())
 	setAuthRoute(router)
 	setUserRoute(router)
+	setTodoRoute(router)
 	return router
 }

@@ -35,7 +35,6 @@ func (auth *AuthController) Register(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusCreated, gin.H{"user": newUser})
-
 }
 
 func (auth *AuthController) Login(c *gin.Context) {
