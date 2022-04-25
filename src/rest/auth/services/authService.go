@@ -13,7 +13,7 @@ func (authService AuthService) Create(user *models.User) error {
 	if err != nil {
 		return err
 	}
-	return err
+	return nil
 }
 
 func (authService AuthService) FindOne(email string) (*models.User, error) {
