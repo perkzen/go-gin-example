@@ -19,7 +19,7 @@ func (user *User) GenerateJwtToken() (string, error) {
 	claims := token.Claims.(jwt.MapClaims)
 
 	claims["authorized"] = true
-	claims["user"] = user
+	claims["email"] = user.Email
 	claims["exp"] = time.Now().Add(time.Minute * 30).Unix()
 	secretKey := utils.EnvVar("SECRET_KEY", "")
 	tokenString, err := token.SignedString([]byte(secretKey))

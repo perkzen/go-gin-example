@@ -5,7 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
 	"net/http"
-	"rest-api/src/db/models"
+	"rest-api/src/models"
 	"rest-api/src/rest/auth/services"
 )
 
