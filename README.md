@@ -2,7 +2,7 @@
 
 ![image](https://user-images.githubusercontent.com/73199603/164996068-d5aefac6-db02-46e3-9203-e2a490727f3e.png)
 
-Go rest api using the framework Gin, MongoDb database and JWT authentication.
+Go rest api using the framework Gin, MongoDb database and JWT authentication. I've built this project to learn how to build a REST aplication with the go programming language.
 
 Server is running at <a> http://localhost:8080/api/v1 </a>
 
